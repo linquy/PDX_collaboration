@@ -22,3 +22,5 @@ java -jar ~/analysis_tools/picard/picard.jar AddOrReplaceReadGroups INPUT=17.sor
 # Index
 samtools index samtools index 17.sorted.nodup.addRG.bam
 
+# ReMapping
+quy@tblab3_new:/home/quy/PDX_collaboration/WES/realignment_by_GATK/local_realignment/PDX/17$ java -jar ~/analysis_tools/GATK/GenomeAnalysisTK.jar -T RealignerTargetCreator -R ~/PDX_collaboration/WES/realignment_by_GATK/genome/GRch38_chromosome.fa -I ~/PDX_collaboration/WES_bwa_alignment/PDX_library_data/17/17.sorted.nodup.addRG.bam --known ~/PDX_collaboration/WES/realignment_by_GATK/known_indels/ftp.broadinstitute.org/bundle/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf -o ./17.forIndelRealigner.intervals
