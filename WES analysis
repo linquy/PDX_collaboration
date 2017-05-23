@@ -1,0 +1,20 @@
+WES alignment bwa
+	index generation:
+	quy@tblab:~/PDX_collaboration/WES_bwa_alignment/bwa_index$ bwa index -p ./GRch38_chromosome_ -a bwtsw ~/GRCh38_GENCODE/GRch38_chromosome.fa
+
+
+sort and remove duplicates in bam files
+
+# In order to reduce the number of miscalls of INDELs in your data it is helpful to realign your raw gapped alignment with the Broad’s GATK Realigner.
+
+# broadBundle
+quy@tblab3_new:/home/quy/PDX_collaboration/WES/realignment_by_GATK/known_indels$ wget -r 'ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/'
+
+# Fasta index
+quy@tblab3_new:/home/quy/PDX_collaboration/WES/realignment_by_GATK/genome$ samtools faidx GRch38_chromosome.fa
+
+# Creating genome dir
+quy@tblab3_new:/home/quy/PDX_collaboration/WES/realignment_by_GATK/genome$ java -jar ~/analysis_tools/picard/picard.jar CreateSequenceDictionary R=GRch38_chromosome.fa O=GRch38_chromosome.dict
+
+# Add RG
+quy@tblab3_new:/home/quy/PDX_collaboration/WES_bwa_alignment/PDX_library_data/17$ java -jar ~/analysis_tools/picard/picard.jar AddOrReplaceReadGroups INPUT=17.sorted.nodup.bam OUTPUT=17.sorted.nodup.addRG.bam  RGID=HNHCCCCXX RGLB=Merged RGPL=illumina RGPU=HNHCCCCXX RGSM=sample1
